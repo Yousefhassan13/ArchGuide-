@@ -16,6 +16,10 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
+header {
+	height: 90vh;
+	/* background: #630404; */
+}
 .black {
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
@@ -130,7 +134,8 @@ a, button {
 	}
 	
 .btnAbout:hover{
-		box-shadow: 0 0 29px #272529; 
+		color: #2e2e2e;
+		background-color: #fff;   
 	}
 
 /* SIDE MENU */
@@ -225,12 +230,11 @@ a, button {
 
 /*Title*/
 .title {
-	 margin-top: 40px; 
+	 margin-top: 0px; 
 	font-family: 'Open Sans', sans-serif;
 	font-size: 30px;
 	text-align: center;
 	color: #2E3D49;
-	margin-bottom: 30px;
 }
 
 /*ABOUT*/
@@ -309,7 +313,9 @@ a, button {
 	background: linear-gradient(to right, #630404, #641616);
 	color: white;
 }
-
+.cbox .det a:hover img{
+	filter: brightness(100);
+}
 .cbox img {
 	width: 20px;
 	margin-right: 20px;
@@ -778,61 +784,6 @@ background-color: #ddd;
 
 
 /*PROPERTIES FOR MAKING WEBSITE RESPONSIVE*/
-
-@media screen and (max-width:1200px) {
-	
-	header .head-container .quote{
-		padding: 20px 36px;
-	}
-	header .head-container .quote h5{
-		font-size: 16px;
-	}
-	header .head-container .quote p{
-		font-size: 40px;
-		font-weight:600;
-	}
-	header .head-container .quote .btnAbout{
-	padding: 12px 23px;
-		font-size: 16px;
-		
-	}
-	header .head-container .svg-image img{
-		width: 400px;
-		height: 300;
-	}
-	.course .cbox {
-	grid-template-columns: 3fr 2fr;
-	
-	}
-	.course .title span{
-		font-size: 40px;
-		font-weight: 300;
-	} 
-}
-
-
-@media screen and (max-width:1100px) {
-	header .head-container{
-		flex-direction: column-reverse;
-		height: auto;
-		margin-bottom: 60px;
-	}
-	header .head-container .svg-image{
-		height: auto;
-		margin-bottom: 90px;
-	}
-	header .head-container .svg-image img{
-		width: 500px;
-		height: 450px;
-	}
-	header .head-container .quote p{
-		font-size: 50px;
-	}
-	header .head-container .quote h5{
-font-size: px;
-line-height: 29px;
-	}
-}
 @media screen and (max-width: 960px) {
 	.footer-container {
 		max-width: 600px;
@@ -865,32 +816,19 @@ line-height: 29px;
 		/* position: fixed; */
 		/* top: 0; */
 	}
-	.quote p, .quote h5 {
+	.quote p, .quote h5, .play {
 		justify-content: center;
 		text-align: center;
-		padding: 10px;
 	}
 	.quote p {
 		font-size: 30px;
-	}
-
-	.btnAbout{
-		margin-left: 200px;
 	}
 	.service-container .right-side img {
 		width: 90%;
 	}
 	.title {
-		margin-top: 30px;
-		margin-bottom: 10px;
-		padding: 10px;
+		margin-top: 0px;
 	}
-	footer{
-        flex-direction: column;
-        padding: 60px 40px;
-
-    }
-	
 	
 }
 @media screen and (max-width: 700px) {
@@ -900,46 +838,14 @@ line-height: 29px;
 		margin-top: 20px;
 	}
 	.svg-image img {
-		width: 50%;
+		width: 90%;
 		margin: 20px;
 		/* align-self: center; */
 	}
-	footer{
-		width: 100%;
-	}
-	.footer-container{
-			padding: 40px 20px;
-		
-	}
-
-}
-@media screen and (max-width:596px) {
-	.diffSection .about-content .side-text-appear{
-		margin: 50px;
-		}
-		.diffSection .about-content .side-text{
-			padding: 20px 35px;
-		}	
-		.course .title{
-text-align: center;		
-/* padding: 10px 20px; */
-margin-left: 100px;	
-		}
-		.course .cbox{
-			margin: 70px;
-		}
-		.diffSection p{
-			margin-left: 100px;
-		}
 }
 
 @media screen and (max-width: 1000px) {	
 	.feedbox form input, .feedbox form .fname{
 		width: 100%;
-	}
-	.svg-image img {
-		width: 50%;
-		margin: 20px;
-		/* align-self: center; */
 	}
 }
