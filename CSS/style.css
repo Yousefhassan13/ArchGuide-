@@ -920,6 +920,17 @@ line-height: 29px;
 		.diffSection .about-content .side-text{
 			padding: 20px 35px;
 		}	
+		.course .title{
+text-align: center;		
+/* padding: 10px 20px; */
+margin-left: 100px;	
+		}
+		.course .cbox{
+			margin: 70px;
+		}
+		.diffSection p{
+			margin-left: 100px;
+		}
 }
 
 @media screen and (max-width: 1000px) {	
