@@ -1,168 +1,125 @@
-// Changing the style of scroll bar
-// window.onscroll = function() {myFunction()};
-		
-// function myFunction() {
-// 	var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-// 	var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-// 	var scrolled = (winScroll / height) * 100;
-// 	document.getElementById("myBar").style.width = scrolled + "%"; 
-// }
+/**
+ * ArchGuide Main Script - Optimized Version
+ */
 
-function scrollAppear() {
-    var introText = document.querySelector('.side-text');
-    var sideImage = document.querySelector('.sideImage');
-    var introPosition = introText.getBoundingClientRect().top;
-    var imagePosition = sideImage.getBoundingClientRect().top;
+// 1. إدارة أحداث التمرير بكفاءة
+window.addEventListener('scroll', () => {
+    // استخدام requestAnimationFrame لتحسين الأداء أثناء التمرير
+    requestAnimationFrame(handleScrollEffects);
+});
+
+function handleScrollEffects() {
+    const docElem = document.documentElement;
+    const scrollPos = docElem.scrollTop || document.body.scrollTop;
+    const height = docElem.scrollHeight - docElem.clientHeight;
+
+    // أ. تحديث شريط التقدم
+    const progressBar = document.getElementById("myBar");
+    if (progressBar && height > 0) {
+        const scrolled = (scrollPos / height) * 100;
+        progressBar.style.width = `${scrolled}%`;
+    }
+
+    // ب. تأثير ظهور العناصر (Scroll Appear)
+    const screenPosition = window.innerHeight / 1.2;
     
-    var screenPosition = window.innerHeight / 1.2;
-  
-    if(introPosition < screenPosition) {
-      introText.classList.add('side-text-appear');
-    }
-    if(imagePosition < screenPosition) {
-      sideImage.classList.add('sideImage-appear');
-    }
-  }
-  
-  window.addEventListener('scroll', scrollAppear);
-  
-  // For switching between navigation menus in mobile mode
-  var i = 2;
-  function switchTAB() {
-      var x = document.getElementById("list-switch");
-      if(i%2 == 0) {
-          document.getElementById("list-switch").style= "display: grid; height: 50vh; margin-left: 5%;";
-          document.getElementById("search-switch").style= "display: block; margin-left: 5%;";
-      }else {
-          document.getElementById("list-switch").style= "display: none;";
-          document.getElementById("search-switch").style= "display: none;";
-      }
-      i++;
-  }
-  
-  // For LOGIN
-  var x = document.getElementById("login");
-  var y = document.getElementById("register");
-  var z = document.getElementById("btn");
-  var a = document.getElementById("log");
-  var b = document.getElementById("reg");
-  var w = document.getElementById("other");
-  
-  function register() {
-    x.style.left = "-400px";
-    y.style.left = "50px";
-    z.style.left = "110px";
-    w.style.visibility = "hidden";
-    b.style.color = "#fff";
-    a.style.color = "#000";
-  }
-  
-  function login() {
-    x.style.left = "50px";
-    y.style.left = "450px";
-    z.style.left = "0px";
-    w.style.visibility = "visible";
-    a.style.color = "#fff";
-    b.style.color = "#000";
-  }
+    // مصفوفة بالعناصر التي تريد تطبيق التأثير عليها لتجنب التكرار
+    const elementsToAnimate = [
+        { selector: '.side-text', className: 'side-text-appear' },
+        { selector: '.sideImage', className: 'sideImage-appear' }
+    ];
+
+    elementsToAnimate.forEach(item => {
+        const element = document.querySelector(item.selector);
+        if (element && element.getBoundingClientRect().top < screenPosition) {
+            element.classList.add(item.className);
+        }
+    });
+}
+
+// 2. التحكم في القائمة الجانبية (Side Menu)
+function sideMenu(isOpen) {
+    const menu = document.getElementById('side-menu');
+    if (!menu) return;
+
+    // تحسين: الاعتماد على Boolean (true/false) أو قيم مباشرة
+    // 0 للفتح، 1 للإغلاق كما في كودك الأصلي
+    menu.style.transform = (isOpen === 0) ? 'translateX(0)' : 'translateX(-100%)';
     
-  // CheckBox Function
-  function goFurther(){
-    if (document.getElementById("chkAgree").checked == true) {
-      document.getElementById('btnSubmit').style = 'background: linear-gradient(to right, #FA4B37, #DF2771);';
+    // إدارة خاصية الـ Overflow لمنع التمرير عند فتح القائمة (اختياري)
+    document.body.style.overflow = (isOpen === 0) ? 'hidden' : 'auto';
+}
+
+// 3. دالة التحقق من الشروط (Checkbox)
+function goFurther() {
+    const checkbox = document.getElementById("chkAgree");
+    const submitBtn = document.getElementById('btnSubmit');
+    
+    if (!checkbox || !submitBtn) return;
+
+    const isChecked = checkbox.checked;
+    
+    // تحسين: استخدام فئات CSS (Classes) بدلاً من تعديل الـ Style مباشرة لجعل الكود أنظف
+    submitBtn.style.background = isChecked 
+        ? 'linear-gradient(to right, #630404, #641616)' 
+        : 'lightgray';
+    
+    submitBtn.style.cursor = isChecked ? 'pointer' : 'not-allowed';
+    submitBtn.disabled = !isChecked; // إضافة خاصية disabled الفعلية
+}
+
+// 4. تسجيل الدخول
+function loginWithGoogle() {
+    // تصحيح: assign تأخذ معامل واحد فقط، إذا أردت نافذة جديدة استخدم window.open
+    window.open("https://accounts.google.com", "_blank");
+}
+
+
+
+
+window.addEventListener('scroll', () => {
+    handleScrollEffects();
+});
+
+function handleScrollEffects() {
+    const docElem = document.documentElement;
+    const scrollPos = docElem.scrollTop || document.body.scrollTop;
+    const height = docElem.scrollHeight - docElem.clientHeight;
+
+    // 1. شريط التقدم
+    const progressBar = document.getElementById("myBar");
+    if (progressBar && height > 0) {
+        const scrolled = (scrollPos / height) * 100;
+        progressBar.style.width = scrolled + "%";
     }
-    else{
-      document.getElementById('btnSubmit').style = 'background: lightgray;';
+
+    // 2. تغيير لون الـ Nav عند التمرير (بديل لكود jQuery القديم)
+    const nav = document.querySelector('nav');
+    if (scrollPos > 50) {
+        nav.classList.add('black');
+    } else {
+        nav.classList.remove('black');
     }
-  }
-  
-  function google() {
-        window.location.assign("https://accounts.google.com/signin/v2/identifier?service=accountsettings&continue=https%3A%2F%2Fmyaccount.google.com%2F%3Futm_source%3Dsign_in_no_continue&csig=AF-SEnbZHbi77CbAiuHE%3A1585466693&flowName=GlifWebSignIn&flowEntry=AddSession", "_blank");
-  }
-  
-  // QUIZ Page
-  function quizt(frame) {
-    document.getElementById('f1').style='display: none;';
-    document.getElementById('f2').style='display: none;';
-    document.getElementById('f3').style='display: none;';
-    document.getElementById('f4').style='display: none;';
-    document.getElementById('f5').style='display: none;';
-    document.getElementById('f6').style='display: none;';
-    document.getElementById('f7').style='display: none;';
-    document.getElementById('f8').style='display: none;';
-    document.getElementById('f9').style='display: none;';
-    document.getElementById('f10').style='display: none;';
-    document.getElementById('f11').style='display: none;';
-    if(frame == 1) document.getElementById('f1').style = 'display: block';
-    else if(frame == 2) document.getElementById('f2').style = 'display: block';
-    else if(frame == 3) document.getElementById('f3').style = 'display: block';
-    else if(frame == 4) document.getElementById('f4').style = 'display: block';
-    else if(frame == 5) document.getElementById('f5').style = 'display: block';
-    else if(frame == 6) document.getElementById('f6').style = 'display: block';
-    else if(frame == 7) document.getElementById('f7').style = 'display: block';
-    else if(frame == 8) document.getElementById('f8').style = 'display: block';
-    else if(frame == 9) document.getElementById('f9').style = 'display: block';
-    else if(frame == 10) document.getElementById('f10').style = 'display: block';
-    else if(frame == 11) document.getElementById('f11').style = 'display: block'; 
-    else alert('error');
-  }
-  
-  function startquiz() {
-    document.getElementById('title').style = 'display: none;'; 
-  
-    document.getElementById('panel').style = 'display: inline-flex;'; 
-    document.getElementById('left').style = 'display: block;'; 
-    document.getElementById('right').style = 'display: block;'; 
-  }
-  function searchdisplay() {
-    document.getElementById('searchpanel').style.display="block";
-  }
-  
-  function display(n) {
-    var img1 = document.getElementById('img1');
-    var img2 = document.getElementById('img2');
-    var img3 = document.getElementById('img3');
-    var img4 = document.getElementById('img4');
-    var s1 = document.getElementById('s1');
-    var s2 = document.getElementById('s2');
-    var s3 = document.getElementById('s3');
-    var s4 = document.getElementById('s4');
-  
-    img1.style = 'display: none;';
-    img2.style = 'display: none;';
-    img3.style = 'display: none;';
-    img4.style = 'display: none;';
-    s1.style = 'background: #DF2771; color: #FFF;';
-    s2.style = 'background: #DF2771; color: #FFF;';
-    s3.style = 'background: #DF2771; color: #FFF;';
-    s4.style = 'background: #DF2771; color: #FFF;';
-  
-    if(n==1) {
-      img1.style = 'display: block;';
-      s1.style = 'background: #E5E8EF; color: #DF2771;';
-    }
-    if(n==2) {
-      img2.style = 'display: block;';
-      s2.style = 'background: #E5E8EF; color: #DF2771;';
-    }
-    if(n==3) {
-      img3.style = 'display: block;';
-      s3.style = 'background: #E5E8EF; color: #DF2771;';
-    }
-    if(n==4) {
-      img4.style = 'display: block;';
-      s4.style = 'background: #E5E8EF; color: #DF2771;';
-    } 
-  }
-  
-  
-  function sideMenu(side) {
-    var menu = document.getElementById('side-menu');
-    if(side==0) {
-      menu.style = 'transform: translateX(0vh); position:fixed;';
-    }
-    else {
-      menu.style = 'transform: translateX(-100%);';
-    }
-    side++;
-  }
+
+    // 3. ظهور العناصر تدريجياً
+    const screenPosition = window.innerHeight / 1.3;
+    const elements = [
+        { sel: '.side-text', cls: 'side-text-appear' },
+        { sel: '.sideImage', cls: 'sideImage-appear' }
+    ];
+
+    elements.forEach(item => {
+        const el = document.querySelector(item.sel);
+        if (el && el.getBoundingClientRect().top < screenPosition) {
+            el.classList.add(item.cls);
+        }
+    });
+}
+
+// التحكم في القائمة الجانبية
+function sideMenu(action) {
+    const menu = document.getElementById('side-menu');
+    if (!menu) return;
+    // 0 فتح ، 1 إغلاق
+    menu.style.transform = (action === 0) ? 'translateX(0)' : 'translateX(-100%)';
+}
